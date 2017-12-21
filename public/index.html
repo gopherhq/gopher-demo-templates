@@ -1,0 +1,166 @@
+    <!--  User Settings
+          Add new settings to your extension by just duplicating the different 
+          types of form fields below. We've taken care of the plumbing for you. 
+          When a user saves settings, the values are sent with every subsequent 
+          webhook for that user.  -->
+
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-+ENW/yibaokMnme+vBLnHMphUYxHs34h9lpdbSLuAwGkOKFRl4C34WkjazBtb7eT" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+		<link rel="stylesheet" type="text/css" href="./app.css">
+	</head>
+	<body>
+		<nav class="navbar navbar-fixed-top">
+			<h4><strong>Gopher Command Settings</strong></h4>
+		</nav>
+		<div class="container" id="content">
+			
+      <!-- Dialogs -->
+      <div class="alert alert-dismissible alert-warning hide" id="error">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+			</div>
+
+			<div class="alert alert-dismissible alert-success hide" id="success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+			</div>
+      <!-- End Dialogs -->
+            
+      <div class="jumbotron hide" id="welcome">
+        <h1>Welcome</h1>
+        <p>
+          Edit this page in public/settings.html. Welcome your users. 
+          Tell them how great your extension is. You can also accept settings and 
+          initiate OAuth connections to other accounts. (This "welcome" block only shows after successfully logging in).
+        </p>
+        <button class="btn btn-primary">
+          Here's A Button
+        </button>
+      </div>
+      
+      <section class="row " id="command-settings">
+				<div class="col-sm-7">
+					<h1>Extension Settings</h1>
+          <p>
+            Your extension settings are are saved in the core Gopher API, allowing your extension to be 
+            wonderfully stateless. These settings are sent with with every Gopher webhook under the key:
+            <code>extension.private_data</code>. 
+          </p>
+          <p>
+            Store useful things! For example:
+            <ul>
+              <li>Custom followup messages</li>
+              <li>User logos</li>
+              <li>OAuth Tokens granting access to antoher service</li>
+          </ul>
+          </p>
+          <p>
+            Adding and removing settings is easy, just copy / paste form fields (view 
+            source). Your extension stores free-form JSON so new settings Just Work&copy;.
+          </p>
+          <p>
+            This framework logs all settings to the console. This is the same data that will 
+            arrive in the webhooks.
+          </p>
+          <p>
+            <strong>Please note that this is an alpha-release. Contributions, bug-fixes and feedback are welcome.</strong>
+          </p>
+                    
+					<form class="form-horizontal settings-form hide" method="POST" action="/saveSettings">
+
+            
+            <!-- Plain Text Input -->
+            <div class="form-group">
+              <label for="inputName" class="control-label">Name</label>
+              <input type="text" class="fut-setting form-control" id="inputName" placeholder="Name">
+            </div>
+            <!-- End Plain Text Input -->
+
+            
+            <!-- Another Plain Text Input (Note what changed from above) -->
+            <div class="form-group">
+              <label for="inputEmail" class="control-label">Email</label>
+              <input type="text" class="fut-setting form-control" id="inputEmail" placeholder="Email">
+            </div>
+            <!-- End Plain Text Input -->
+
+            
+            <!-- Text Area -->
+            <div class="form-group">
+              <label for="default_reply">Comment:</label>
+              <textarea class="fut-setting form-control" rows="5" id="default_reply"></textarea>
+            </div>
+            <!-- End Text Area -->
+            
+            
+          <!-- Checkbox -->
+            <div class="form-group">
+              <div class="checkbox">
+                <label><input type="checkbox" id="setting_1" class="fut-setting" value="1">Example Checkbox Setting</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" id="setting_2" class="fut-setting" value="2">Another Setting</label>
+              </div>
+            </div>
+            <!-- End Checkbox -->
+            
+            <br /><br />
+            <!-- Password Field  -->
+            <div class="form-group">
+              <label for="secret" lass="control-label ">Password</label>
+                <input type="password" class="fut-setting form-control" id="secret" placeholder="Password Field">
+                <span class="help-block">Add a hint like this</span>
+            </div>
+            <!-- End Password Field -->
+
+            <!-- Dropdown Select  -->
+            <div class="form-group">
+              <label for="select" class="control-label">City</label>
+              <select class="fut-setting form-control" id="select">
+                  <option>San Francisco</option>  
+                  <option>Chicago</option>
+                  <option>London</option>
+                  <option>New York</option>
+              </select>
+            </div>
+            <!-- End Dropdown Select -->
+            
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" id="save_settings">Submit</button>
+            </div>
+            </form>
+            
+          <!-- End Settings Form -->
+          
+				</div>
+
+				<div class="col-sm-5">
+					<div class="well">
+            
+            <!-- Side-Panel -->
+						<h3>Helper Text</h3>
+						<p>You can add some text here to help your users. This is all, of course, totally editable. It's just a starting point.</p>
+						<p>Need help? Join the<br /> <a href="slackin.gopheremail.com">Gopher Slack Channel</a></p>
+             <!-- Side-Panel -->
+					</div>
+
+				</div>
+			</section>
+    </div>
+
+		<!--Jquery, Bootstrap -->
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<!--js-cookie-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+		<!--moment, lodash, nprogress -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+		<!--app-->
+		<script src="./gopher.js"></script>
+		<script src="./app.js"></script>
+	</body>
+</html>
